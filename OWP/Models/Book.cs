@@ -16,7 +16,14 @@ namespace OWP.Models
 
         public string Author { get; set; }
 
-        public DateTime Date { get; set; }
+        [Display(Name = "Release Date")]
+        public DateTime ReleaseDate { get; set; }
+
+        [Display(Name = "Price")]
+        [DataType(DataType.Currency)]
+        public decimal Price { get; set; }
+
+        public byte NumberInStock { get; set; }
 
     }
 }

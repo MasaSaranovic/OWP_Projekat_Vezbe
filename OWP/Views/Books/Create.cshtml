@@ -1,0 +1,36 @@
+﻿@model OWP.Models.Book
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Dodavanje knjige</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Author)
+        @Html.TextBoxFor(m => m.Author)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.ReleaseDate)
+        @Html.TextBoxFor(m => m.ReleaseDate)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Price)
+        @Html.TextBoxFor(m => m.Price)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.NumberInStock)
+        @Html.TextBoxFor(m => m.NumberInStock)
+    </div>
+    <button type="submit">Sačuvaj</button>
+}
