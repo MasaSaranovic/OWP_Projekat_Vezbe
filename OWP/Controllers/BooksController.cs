@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace OWP.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class BooksController : Controller
     {
 
@@ -18,10 +19,16 @@ namespace OWP.Controllers
             _context = new ApplicationDbContext();
         }
         // GET: Books
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
-            var list = _context.Books.ToList();
-            return View(list);
+            var books = from b in _context.Books select b;
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                books = books.Where(b => b.Name.Contains(search));
+            }
+            
+            return View(books.ToList());
         }
 
         public ActionResult Details(int id)

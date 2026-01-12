@@ -6,6 +6,11 @@
     @Html.ActionLink("Dodajte novu knjigu", "Create")
 </p>
 
+@using (Html.BeginForm("Index", "Books", FormMethod.Get))
+            {
+                <input type="text" name="search" placeholder="Search by title" class="form-control"/>
+                <button type="submit" class="btn btn-primary">Search</button>
+            }
 <table class="table">
     <thead>
         <tr>

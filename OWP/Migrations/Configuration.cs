@@ -1,5 +1,8 @@
 namespace OWP.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using OWP.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -14,10 +17,23 @@ namespace OWP.Migrations
 
         protected override void Seed(OWP.Models.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            var roleManager = new RoleManager<IdentityRole>(
+                new RoleStore<IdentityRole>(context));
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+            var userManager = new UserManager<ApplicationUser>(
+                new UserStore<ApplicationUser>(context));
+
+            if (!roleManager.RoleExists("Admin"))
+            {
+                roleManager.Create(new IdentityRole("Admin"));
+            }
+
+            var user = userManager.FindByEmail("masasaranovic@gmail.com");
+
+            if(user != null && !userManager.IsInRole(user.Id, "Admin"))
+            {
+                userManager.AddToRole(user.Id, "Admin");
+            }
         }
     }
 }

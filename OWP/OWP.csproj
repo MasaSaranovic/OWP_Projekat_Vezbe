@@ -216,6 +216,10 @@
     <Compile Include="Migrations\202512081150201_Test.Designer.cs">
       <DependentUpon>202512081150201_Test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202512221159384_Admin.cs" />
+    <Compile Include="Migrations\202512221159384_Admin.Designer.cs">
+      <DependentUpon>202512221159384_Admin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Book.cs" />
@@ -311,6 +315,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202512081150201_Test.resx">
       <DependentUpon>202512081150201_Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202512221159384_Admin.resx">
+      <DependentUpon>202512221159384_Admin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
