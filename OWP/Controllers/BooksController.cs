@@ -5,10 +5,11 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace OWP.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class BooksController : Controller
     {
 
@@ -19,16 +20,25 @@ namespace OWP.Controllers
             _context = new ApplicationDbContext();
         }
         // GET: Books
-        public ActionResult Index(string search)
+        public ActionResult Index(string search, int? page)
         {
-            var books = from b in _context.Books select b;
+            int pageSize = 3;
+            int pageNumber = page ?? 1;
+
+            var books = _context.Books.AsQueryable();
+                
+            //from b in _context.Books select b;
 
             if (!String.IsNullOrEmpty(search))
             {
                 books = books.Where(b => b.Name.Contains(search));
             }
+
+            var pagedBooks = books
+                .OrderBy(b => b.Id)
+                .ToPagedList(pageNumber, pageSize);
             
-            return View(books.ToList());
+            return View(pagedBooks);
         }
 
         public ActionResult Details(int id)
