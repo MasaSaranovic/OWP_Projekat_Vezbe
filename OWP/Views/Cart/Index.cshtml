@@ -1,0 +1,31 @@
+﻿@model List<OWP.Models.CartItem>
+
+<h2>Korpa</h2>
+
+@if (!Model.Any()) { 
+    <p>Korpa je prazna.</p>
+}
+else
+{
+   <table class="table">
+       <tr><th>Knjiga</th><th>Kolicina</th><th>Cena</th></tr>
+       @foreach(var i in Model)
+        {
+        <tr>
+                <td>@i.Title</td>
+                <td>@i.Quantity</td>
+                <td>@(i.UnitPrice * i.Quantity)</td>
+                <td>
+                    @using(Html.BeginForm("Remove", "Cart", FormMethod.Post))
+                    {
+                        @Html.Hidden("bookId", i.BookId)
+                        <button class="btn btn-danger btn-sm">Ukloni</button>
+                    }
+                </td>
+        </tr>
+        }
+   </table>
+
+   <a class="btn btn-primary" href="@Url.Action("Index", "Checkout")">Nastavi na dostavu i placanje</a>
+}
+
