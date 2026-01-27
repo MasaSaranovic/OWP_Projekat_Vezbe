@@ -31,7 +31,7 @@ namespace OWP.Controllers
 
             if (!ModelState.IsValid) return View("Index", model);
 
-            StripeConfiguration.ApiKey = ConfigurationManager.AppSettings["StringSecretKey"];
+            StripeConfiguration.ApiKey = ConfigurationManager.AppSettings["StripeSecretKey"];
 
             var lineItems = cart.Select(i => new SessionLineItemOptions
             {
@@ -77,7 +77,24 @@ namespace OWP.Controllers
 
         }
 
-        //ToDo Success
-        //ToDo Cancel
+        public ActionResult Success(string session_id)
+        {
+            StripeConfiguration.ApiKey = ConfigurationManager.AppSettings["StripeSecretKey"];
+            var service = new SessionService();
+            var session = service.Get(session_id);
+
+            if(session.PaymentStatus == "paid")
+            {
+                CartSession.Clear();
+                return View();
+            }
+
+            return RedirectToAction("Cancel");
+        }
+        
+        public ActionResult Cancel()
+        {
+            return View();
+        }
     }
 }

@@ -38,6 +38,15 @@
                 @Html.ActionLink("Detalji", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Izmeni", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Obrisi", "Delete", new { id = item.Id })
+
+                @using (Html.BeginForm("Add", "Cart", FormMethod.Post, new {style = "display:inline" }))
+                {
+                    @Html.Hidden("bookId", item.Id)
+                    <button type="submit" class="btn btn-sm btn-success" title="Dodaj u korpu">
+                        <i class="fa fa-cart-plus"></i>
+                    </button>
+
+                }
             </td>
         </tr>
             }
